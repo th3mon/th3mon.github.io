@@ -1,0 +1,15 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+const { frontmatter } = Astro.props;
+const pageTitle = frontmatter?.title
+  ? `${frontmatter.title} | Przemyslaw Szelenberger`
+  : "Przemyslaw Szelenberger";
+---
+
+<BaseLayout title={pageTitle}>
+  <article class="page-content prose">
+    {frontmatter?.title && <h1>{frontmatter.title}</h1>}
+    <slot />
+  </article>
+</BaseLayout>

@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { HomePage } from "../components/HomePage";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+
+const archivePosts = posts.map((post) => {
+  const categories = Array.isArray(post.data.categories)
+    ? post.data.categories
+    : typeof post.data.categories === "string"
+      ? post.data.categories.split(/[,\s]+/).filter(Boolean)
+      : [];
+
+  return {
+    title: post.data.title,
+    permalink: post.data.permalink,
+    publishedAt: post.data.date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    }),
+    year: post.data.date.getUTCFullYear().toString(),
+    categoryLabel: categories.length > 0 ? categories.join(" / ") : "General"
+  };
+});
+
+const latestPosts = archivePosts.slice(0, 3);
+const yearsActive = new Set(archivePosts.map((post) => post.year)).size;
+---
+
+<BaseLayout title="Przemyslaw Szelenberger" description="Frontend developer blog and notes.">
+  <HomePage
+    archivePosts={archivePosts}
+    latestPosts={latestPosts}
+    postCount={posts.length}
+    yearsActive={yearsActive}
+  />
+</BaseLayout>
