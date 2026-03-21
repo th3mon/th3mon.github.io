@@ -1,0 +1,73 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Przemyslaw Szelenberger",
+  description = "Frontend developer blog and notes."
+} = Astro.props;
+
+const pathname = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="container header-inner">
+          <a class="brand" href="/">
+            <span class="brand-mark">
+              <img
+                src="/images/przemyslaw-szelenberger-brandmark.jpg"
+                alt="Portrait of Przemyslaw Szelenberger"
+                width="44"
+                height="44"
+              />
+            </span>
+            <span class="brand-copy">
+              <strong>Przemyslaw Szelenberger</strong>
+              <small>Senior Fullstack Engineer</small>
+            </span>
+          </a>
+          <nav class="site-nav" aria-label="Main navigation">
+            <a class={pathname === "/" ? "is-active" : undefined} href="/">Home</a>
+            <a class={pathname.startsWith("/posts") ? "is-active" : undefined} href="/posts/">Posts</a>
+            <a class={pathname.startsWith("/about") ? "is-active" : undefined} href="/about/">About</a>
+          </nav>
+        </div>
+      </header>
+
+      <main class="container site-main">
+        <slot />
+      </main>
+
+      <footer class="site-footer">
+        <div class="container footer-inner">
+          <p>Built with Astro and React. Original writing archive preserved and refreshed.</p>
+          <p class="footer-links">
+            <a href="https://github.com/th3mon">GitHub</a>
+            <a href="https://www.linkedin.com/in/przemyslawszelenberger/">LinkedIn</a>
+          </p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
