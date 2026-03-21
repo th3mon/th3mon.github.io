@@ -19,7 +19,7 @@ type Brick = {
   visible: boolean;
 };
 
-type GameStatus = "playing" | "game-over" | "won";
+type GameStatus = "ready" | "playing" | "game-over" | "won";
 
 function createBricks() {
   return Array.from({ length: brickRows }, (_, row) =>
@@ -40,7 +40,7 @@ export function ArcanoidGame() {
   const ballVelocityRef = useRef({ x: 4.2, y: -4.2 });
   const bricksRef = useRef<Brick[][]>(createBricks());
   const directionRef = useRef({ left: false, right: false });
-  const [status, setStatus] = useState<GameStatus>("playing");
+  const [status, setStatus] = useState<GameStatus>("ready");
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -63,20 +63,31 @@ export function ArcanoidGame() {
       bricksRef.current = createBricks();
       directionRef.current = { left: false, right: false };
       resetBall();
-      setStatus("playing");
+      setStatus("ready");
+    };
+
+    const handlePrimaryAction = () => {
+      if (status === "ready") {
+        setStatus("playing");
+      }
+
+      if (status === "game-over") {
+        restartGame();
+      }
     };
 
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.code === "Space") {
+        event.preventDefault();
+        handlePrimaryAction();
+      }
+
       if (event.key === "ArrowLeft") {
         directionRef.current.left = true;
       }
 
       if (event.key === "ArrowRight") {
         directionRef.current.right = true;
-      }
-
-      if (event.key.toLowerCase() === "r" && status !== "playing") {
-        restartGame();
       }
     };
 
@@ -97,6 +108,10 @@ export function ArcanoidGame() {
         0,
         Math.min(canvasWidth - paddleWidth, relativeX - paddleWidth / 2),
       );
+    };
+
+    const handlePointerStart = () => {
+      handlePrimaryAction();
     };
 
     const handleTouchMove = (event: TouchEvent) => {
@@ -187,13 +202,21 @@ export function ArcanoidGame() {
       context.textAlign = "center";
       context.font = '700 42px "Fraunces", serif';
       context.fillText(
-        status === "won" ? "You cleared the wall!" : "Game over",
+        status === "ready"
+          ? "Press Space or click to start"
+          : status === "won"
+            ? "You cleared the wall!"
+            : "Game over",
         canvasWidth / 2,
         canvasHeight / 2 - 14,
       );
       context.font = '500 17px "IBM Plex Sans", sans-serif';
       context.fillText(
-        status === "won" ? "Redirecting to home..." : 'Press "R" to restart',
+        status === "ready"
+          ? "Then move with the mouse or arrow keys"
+          : status === "won"
+            ? "Redirecting to home..."
+            : "Press Space or click to try again",
         canvasWidth / 2,
         canvasHeight / 2 + 28,
       );
@@ -290,6 +313,8 @@ export function ArcanoidGame() {
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("keyup", handleKeyUp);
     canvas.addEventListener("mousemove", handlePointerMove);
+    canvas.addEventListener("click", handlePointerStart);
+    canvas.addEventListener("touchstart", handlePointerStart, { passive: true });
     canvas.addEventListener("touchmove", handleTouchMove, { passive: true });
 
     animationRef.current = window.requestAnimationFrame(update);
@@ -298,6 +323,8 @@ export function ArcanoidGame() {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
       canvas.removeEventListener("mousemove", handlePointerMove);
+      canvas.removeEventListener("click", handlePointerStart);
+      canvas.removeEventListener("touchstart", handlePointerStart);
       canvas.removeEventListener("touchmove", handleTouchMove);
       if (animationRef.current) {
         window.cancelAnimationFrame(animationRef.current);
