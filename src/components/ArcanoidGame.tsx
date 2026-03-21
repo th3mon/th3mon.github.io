@@ -341,8 +341,9 @@ export function ArcanoidGame() {
         <p className="eyebrow">Canvas game</p>
         <h1>Arcanoid</h1>
         <p>
-          Break every brick. When the wall is gone, the page returns to the home
-          screen automatically.
+          Inspired by the brick-breaker lineage popularized in arcades, especially
+          Taito&apos;s 1986 Arkanoid, which evolved the older Breakout formula into a
+          faster, flashier action game.
         </p>
       </div>
       <div className="game-frame">
