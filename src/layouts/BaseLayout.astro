@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { ThemeToggle } from "../components/ThemeToggle";
 
 interface Props {
   title?: string;
@@ -20,6 +21,25 @@ const {
 const pathname = Astro.url.pathname;
 const canonicalUrl = new URL(pathname, Astro.site);
 const socialImageUrl = new URL(image, Astro.site);
+const themeBootstrap = `
+  (() => {
+    const storageKey = "theme";
+    const lightColor = "#f3efe6";
+    const darkColor = "#17140f";
+    const storedTheme = localStorage.getItem(storageKey);
+    const preferredTheme =
+      storedTheme === "light" || storedTheme === "dark"
+        ? storedTheme
+        : window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+    document.documentElement.dataset.theme = preferredTheme;
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) {
+      themeColor.setAttribute("content", preferredTheme === "dark" ? darkColor : lightColor);
+    }
+  })();
+`;
 ---
 
 <!doctype html>
@@ -45,6 +65,7 @@ const socialImageUrl = new URL(image, Astro.site);
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImageUrl} />
+    <script is:inline set:html={themeBootstrap}></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link
@@ -70,11 +91,14 @@ const socialImageUrl = new URL(image, Astro.site);
               <small>Senior Fullstack Engineer</small>
             </span>
           </a>
-          <nav class="site-nav" aria-label="Main navigation">
-            <a class={pathname === "/" ? "is-active" : undefined} href="/">Home</a>
-            <a class={pathname.startsWith("/posts") ? "is-active" : undefined} href="/posts/">Posts</a>
-            <a class={pathname.startsWith("/about") ? "is-active" : undefined} href="/about/">About</a>
-          </nav>
+          <div class="header-actions">
+            <nav class="site-nav" aria-label="Main navigation">
+              <a class={pathname === "/" ? "is-active" : undefined} href="/">Home</a>
+              <a class={pathname.startsWith("/posts") ? "is-active" : undefined} href="/posts/">Posts</a>
+              <a class={pathname.startsWith("/about") ? "is-active" : undefined} href="/about/">About</a>
+            </nav>
+            <ThemeToggle client:load />
+          </div>
         </div>
       </header>
 
