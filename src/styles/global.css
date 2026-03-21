@@ -235,8 +235,10 @@ html[data-theme="dark"] .site-nav a {
 .theme-toggle {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.45rem 0.55rem 0.45rem 0.9rem;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: linear-gradient(180deg, rgba(255, 250, 241, 0.72), rgba(245, 236, 223, 0.62));
@@ -255,35 +257,18 @@ html[data-theme="dark"] .theme-toggle {
     0 8px 24px rgba(0, 0, 0, 0.22);
 }
 
-.theme-toggle-label {
-  font-size: 0.92rem;
-  font-weight: 600;
-}
-
-.theme-toggle-track {
+.theme-toggle-icon {
   display: inline-flex;
   align-items: center;
-  width: 2.8rem;
-  padding: 0.2rem;
-  border-radius: 999px;
-  background: rgba(26, 23, 18, 0.12);
+  justify-content: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  color: var(--accent);
 }
 
-html[data-theme="dark"] .theme-toggle-track {
-  background: rgba(244, 237, 224, 0.14);
-}
-
-.theme-toggle-thumb {
-  width: 1.2rem;
-  height: 1.2rem;
-  border-radius: 999px;
-  background: var(--accent);
-  transform: translateX(0);
-  transition: transform 140ms ease;
-}
-
-html[data-theme="dark"] .theme-toggle-thumb {
-  transform: translateX(1.2rem);
+.theme-toggle-icon svg {
+  width: 1.15rem;
+  height: 1.15rem;
 }
 
 .site-main {

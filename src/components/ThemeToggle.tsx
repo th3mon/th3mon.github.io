@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { LuMoonStar, LuSun } from "react-icons/lu";
 
 type Theme = "light" | "dark";
 
@@ -69,9 +70,8 @@ export function ThemeToggle() {
       }}
       type="button"
     >
-      <span className="theme-toggle-label">{theme === "light" ? "Light" : "Dark"}</span>
-      <span className="theme-toggle-track" aria-hidden="true">
-        <span className="theme-toggle-thumb" />
+      <span className="theme-toggle-icon" aria-hidden="true">
+        {theme === "light" ? <LuMoonStar /> : <LuSun />}
       </span>
     </button>
   );
