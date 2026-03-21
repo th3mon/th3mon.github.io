@@ -95,6 +95,7 @@ const themeBootstrap = `
             <nav class="site-nav" aria-label="Main navigation">
               <a class={pathname === "/" ? "is-active" : undefined} href="/">Home</a>
               <a class={pathname.startsWith("/posts") ? "is-active" : undefined} href="/posts/">Posts</a>
+              <a class={pathname.startsWith("/stack") ? "is-active" : undefined} href="/stack/">Stack</a>
               <a class={pathname.startsWith("/about") ? "is-active" : undefined} href="/about/">About</a>
             </nav>
             <ThemeToggle client:load />
