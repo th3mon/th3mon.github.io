@@ -22,6 +22,7 @@ const {
 const pathname = Astro.url.pathname;
 const canonicalUrl = new URL(pathname, Astro.site);
 const socialImageUrl = new URL(image, Astro.site);
+const isArcanoidPage = pathname.startsWith("/arcanoid");
 const navItems = [
   { href: "/", label: "Home" },
   { href: "/posts/", label: "Posts" },
@@ -50,6 +51,43 @@ const themeBootstrap = `
     }
   })();
 `;
+const konamiBootstrap = isArcanoidPage
+  ? ""
+  : `
+  (() => {
+    const code = [
+      "ArrowUp",
+      "ArrowUp",
+      "ArrowDown",
+      "ArrowDown",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowLeft",
+      "ArrowRight",
+      "b",
+      "a"
+    ];
+    let index = 0;
+
+    window.addEventListener("keydown", (event) => {
+      const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+      const expected = code[index];
+
+      if (key === expected) {
+        index += 1;
+
+        if (index === code.length) {
+          index = 0;
+          window.location.href = "/arcanoid/";
+        }
+
+        return;
+      }
+
+      index = key === code[0] ? 1 : 0;
+    });
+  })();
+`;
 ---
 
 <!doctype html>
@@ -76,6 +114,7 @@ const themeBootstrap = `
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImageUrl} />
     <script is:inline set:html={themeBootstrap}></script>
+    {konamiBootstrap && <script is:inline set:html={konamiBootstrap}></script>}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link
