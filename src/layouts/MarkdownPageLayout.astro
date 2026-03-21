@@ -7,7 +7,7 @@ const pageTitle = frontmatter?.title
   : "Przemyslaw Szelenberger";
 ---
 
-<BaseLayout title={pageTitle}>
+<BaseLayout title={pageTitle} description={frontmatter?.description}>
   <article class="page-content prose">
     {frontmatter?.title && <h1>{frontmatter.title}</h1>}
     <slot />

@@ -1,6 +1,7 @@
 ---
 layout: ../layouts/MarkdownPageLayout.astro
 title: About
+description: Senior fullstack engineer focused on React, TypeScript, Node.js, architecture, and product-minded web development.
 ---
 
 Senior Fullstack Engineer focused on React, TypeScript, and Node.js.

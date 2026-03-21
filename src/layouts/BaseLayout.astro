@@ -4,14 +4,22 @@ import "../styles/global.css";
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  type?: "website" | "article";
+  publishedTime?: string;
 }
 
 const {
   title = "Przemyslaw Szelenberger",
-  description = "Frontend developer blog and notes."
+  description = "Senior fullstack engineer focused on React, TypeScript, Node.js, and product-oriented web development.",
+  image = "/images/Przemysław_Szelenberger.jpg",
+  type = "website",
+  publishedTime
 } = Astro.props;
 
 const pathname = Astro.url.pathname;
+const canonicalUrl = new URL(pathname, Astro.site);
+const socialImageUrl = new URL(image, Astro.site);
 ---
 
 <!doctype html>
@@ -21,7 +29,22 @@ const pathname = Astro.url.pathname;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#f3efe6" />
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:site_name" content="Przemyslaw Szelenberger" />
+    <meta property="og:locale" content="en_US" />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageUrl} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link
