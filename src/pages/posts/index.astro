@@ -27,6 +27,9 @@ const posts = (await getCollection("blog"))
   .sort((a, b) => b.timestamp - a.timestamp);
 ---
 
-<BaseLayout title="Posts | Przemyslaw Szelenberger" description="Archive of blog posts and engineering notes.">
+<BaseLayout
+  title="Posts | Przemyslaw Szelenberger"
+  description="Archive of engineering notes, frontend posts, and project logs by Przemyslaw Szelenberger."
+>
   <PostsArchive client:load posts={posts} />
 </BaseLayout>

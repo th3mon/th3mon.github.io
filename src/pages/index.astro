@@ -31,7 +31,10 @@ const latestPosts = archivePosts.slice(0, 3);
 const yearsActive = new Set(archivePosts.map((post) => post.year)).size;
 ---
 
-<BaseLayout title="Przemyslaw Szelenberger" description="Frontend developer blog and notes.">
+<BaseLayout
+  title="Przemyslaw Szelenberger | Senior Fullstack Engineer"
+  description="Senior fullstack engineer writing about frontend, architecture, React, TypeScript, Node.js, and long-term product work."
+>
   <HomePage
     archivePosts={archivePosts}
     latestPosts={latestPosts}
