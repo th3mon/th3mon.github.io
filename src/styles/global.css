@@ -817,6 +817,51 @@ html[data-theme="dark"] .home-link {
   flex-wrap: wrap;
 }
 
+.game-shell {
+  display: grid;
+  gap: 1rem;
+}
+
+.game-copy,
+.game-frame {
+  border: 1px solid var(--line);
+  border-radius: 1.75rem;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.game-copy {
+  padding: 1.5rem 1.6rem;
+}
+
+.game-copy h1 {
+  margin: 0.25rem 0 0.75rem;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(2.1rem, 4vw, 3rem);
+}
+
+.game-copy p:last-child {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.game-frame {
+  padding: 1rem;
+}
+
+.game-canvas {
+  width: 100%;
+  height: auto;
+  border-radius: 1.2rem;
+  display: block;
+  background: #17110f;
+}
+
+html[data-theme="dark"] .game-copy,
+html[data-theme="dark"] .game-frame {
+  background: var(--surface);
+}
+
 @media (max-width: 960px) {
   .home-grid,
   .archive-columns,

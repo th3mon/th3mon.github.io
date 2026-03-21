@@ -1,0 +1,11 @@
+---
+import { ArcanoidGame } from "../components/ArcanoidGame";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Arcanoid | Przemyslaw Szelenberger"
+  description="A small canvas brick-breaker hidden inside the site."
+>
+  <ArcanoidGame client:load />
+</BaseLayout>
