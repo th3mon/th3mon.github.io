@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { NavMenu } from "../components/NavMenu";
 import { ThemeToggle } from "../components/ThemeToggle";
 
 interface Props {
@@ -21,6 +22,15 @@ const {
 const pathname = Astro.url.pathname;
 const canonicalUrl = new URL(pathname, Astro.site);
 const socialImageUrl = new URL(image, Astro.site);
+const navItems = [
+  { href: "/", label: "Home" },
+  { href: "/posts/", label: "Posts" },
+  { href: "/stack/", label: "Stack" },
+  { href: "/about/", label: "About" }
+].map((item) => ({
+  ...item,
+  active: item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
+}));
 const themeBootstrap = `
   (() => {
     const storageKey = "theme";
@@ -92,12 +102,7 @@ const themeBootstrap = `
             </span>
           </a>
           <div class="header-actions">
-            <nav class="site-nav" aria-label="Main navigation">
-              <a class={pathname === "/" ? "is-active" : undefined} href="/">Home</a>
-              <a class={pathname.startsWith("/posts") ? "is-active" : undefined} href="/posts/">Posts</a>
-              <a class={pathname.startsWith("/stack") ? "is-active" : undefined} href="/stack/">Stack</a>
-              <a class={pathname.startsWith("/about") ? "is-active" : undefined} href="/about/">About</a>
-            </nav>
+            <NavMenu client:load items={navItems} />
             <ThemeToggle client:load />
           </div>
         </div>
