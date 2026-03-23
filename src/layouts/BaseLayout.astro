@@ -113,6 +113,15 @@ const konamiBootstrap = isArcanoidPage
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImageUrl} />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EH1M5340XJ"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-EH1M5340XJ");
+    </script>
     <script is:inline set:html={themeBootstrap}></script>
     {konamiBootstrap && <script is:inline set:html={konamiBootstrap}></script>}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
