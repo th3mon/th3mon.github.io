@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import { styled } from "styled-components";
+import { useIsClient, useLocalStorage } from "@uidotdev/usehooks";
 
 const storageKey = "cookie-notice-dismissed";
 
@@ -71,14 +71,9 @@ const DismissButton = styled.button`
 `;
 
 export function CookieNotice() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    // TODO: Add custom hook on localSctorage
-    const isDismissed = window.localStorage.getItem(storageKey) === "true";
-
-    setIsVisible(!isDismissed);
-  }, []);
+  const isClient = useIsClient();
+  const [dismissed, setDismissed] = useLocalStorage(storageKey, false);
+  const isVisible = isClient && !dismissed;
 
   if (!isVisible) {
     return null;
@@ -92,8 +87,7 @@ export function CookieNotice() {
       </p>
       <DismissButton
         onClick={() => {
-          window.localStorage.setItem(storageKey, "true");
-          setIsVisible(false);
+          setDismissed(true);
         }}
         type="button"
       >
