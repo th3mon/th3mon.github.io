@@ -15,6 +15,7 @@
   "dependencies": {
     "@astrojs/react": "^5.0.0",
     "@astrojs/sitemap": "^3.7.1",
+    "@uidotdev/usehooks": "^2.4.1",
     "astro": "^5.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
