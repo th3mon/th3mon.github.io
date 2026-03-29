@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { CookieNotice } from "../components/CookieNotice";
 import { NavMenu } from "../components/NavMenu";
 import { ThemeToggle } from "../components/ThemeToggle";
 
@@ -170,6 +171,8 @@ const konamiBootstrap = isArcanoidPage
           </p>
         </div>
       </footer>
+
+      <CookieNotice client:load />
     </div>
   </body>
 </html>
