@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { CookieNotice } from "../components/CookieNotice";
 import { NavMenu } from "../components/NavMenu";
 import { ThemeToggle } from "../components/ThemeToggle";
 
@@ -166,9 +167,12 @@ const konamiBootstrap = isArcanoidPage
           <p class="footer-links">
             <a href="https://github.com/th3mon">GitHub</a>
             <a href="https://www.linkedin.com/in/przemyslawszelenberger/">LinkedIn</a>
+            <a href="/privacy-policy/">Privacy Policy</a>
           </p>
         </div>
       </footer>
+
+      <CookieNotice client:only="react" />
     </div>
   </body>
 </html>
